@@ -7,6 +7,7 @@ class CashRegister
   def initialize(employee_discount = 0)
     @employee_discount = employee_discount
     @total = 0
+    @items = []
   end
 
   def discount
@@ -15,6 +16,7 @@ class CashRegister
 
   def add_item(title,price,quantity = 1)
     @total += price * quantity
+    @items += [title] * quantity
   end
 
    def apply_discount
@@ -25,6 +27,21 @@ class CashRegister
       "There is no discount to apply."
     end
   end
+
+  def items
+   @items
+  end
+  
+  def void_last_transaction
+    return if @items.empty?
+    last_item = @items.pop
+    last_price = @total / @items.length
+    @total -= last_price
+  end
+
+  
+  
+  
 
   
 end
